@@ -109,19 +109,18 @@ const isTheGameOver = () => {
     didXWin = winConditions[i].every(checkX) && winConditions[i].length === 3
     didOWin = winConditions[i].every(checkO) && winConditions[i].length === 3
     if (didXWin) {
-      console.log('X won!')
+      ui.displayVictory(currentPlayerMark)
       return true
     } else if (didOWin) {
-      console.log('O won!')
+      ui.displayVictory(currentPlayerMark)
       return true
     }
   }
   didTheyTie = board.every(checkTie)
   if (didTheyTie) {
-    console.log('They tied!')
+    ui.displayTie()
     return true
   }
-  console.log('No one has won!')
   return false
 }
 
@@ -133,14 +132,13 @@ const onClickBoard = event => {
   console.log(id)
   const isItMarked = checkSquare(square)
   if (isItMarked) {
-    console.log('That move is invalid!')
+    ui.invalidMove()
   } else if (isItOver) {
-    console.log('The game is over!')
+    ui.gameOverMessage()
   } else {
     markSquare(square) // marks square with current player mark
     pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
     isItOver = isTheGameOver() // checks if someone/who has won
-    // console.log(winConditions)
     console.log(board)
     console.log(isTheGameOver(), isItOver)
     toggleTurn()
