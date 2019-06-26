@@ -93,31 +93,36 @@ const pushPlayerMark = id => {
   }
 }
 
-const checkX = (currString) => {
-  return currString === 'X'
-}
+let didXWin = false
+let didOWin = false
+let didTheyTie = false
+let isItOver
 
-const checkO = (currString) => {
-  return currString === 'O'
-}
+const checkX = currString => currString === 'X'
+
+const checkO = currString => currString === 'O'
 
 const checkTie = currString => currString === 'X' || currString === 'O'
 
-const didSomeoneWin = () => {
+const isTheGameOver = () => {
   for (let i = 0; i < winConditions.length; i++) {
-    const didXWin = winConditions[i].every(checkX) && winConditions[i].length === 3
-    const didOWin = winConditions[i].every(checkO) && winConditions[i].length === 3
+    didXWin = winConditions[i].every(checkX) && winConditions[i].length === 3
+    didOWin = winConditions[i].every(checkO) && winConditions[i].length === 3
     if (didXWin) {
-      return 'X won!'
+      console.log('X won!')
+      return true
     } else if (didOWin) {
-      return 'O won!'
+      console.log('O won!')
+      return true
     }
   }
-  const didTheyTie = board.every(checkTie)
+  didTheyTie = board.every(checkTie)
   if (didTheyTie) {
-    return 'X and O have tied!'
+    console.log('They tied!')
+    return true
   }
-  return 'No one has won!'
+  console.log('No one has won!')
+  return false
 }
 
 // function that executes when someone clicks on a space in the board
@@ -129,14 +134,15 @@ const onClickBoard = event => {
   const isItMarked = checkSquare(square)
   if (isItMarked) {
     console.log('That move is invalid!')
+  } else if (isItOver) {
+    console.log('The game is over!')
   } else {
     markSquare(square) // marks square with current player mark
     pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
-    didSomeoneWin() // checks if someone/who has won
+    isItOver = isTheGameOver() // checks if someone/who has won
     // console.log(winConditions)
-    // console.log(board)
-    console.log(didSomeoneWin())
-    // check if someone won
+    console.log(board)
+    console.log(isTheGameOver(), isItOver)
     toggleTurn()
   }
   // check if someone is in square
