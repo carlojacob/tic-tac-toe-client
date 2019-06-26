@@ -2,9 +2,10 @@
 
 const ui = require('./ui')
 
+const board = ['', '', '', '', '', '', '', '', '']
+
+// function that checks if a square has already been marked
 const checkSquare = square => {
-  // const square = event.target
-  // console.log(square, $(square).text())
   if ($(square).text() === 'X' || $(square).text() === 'O') {
     return true
   } else {
@@ -12,41 +13,132 @@ const checkSquare = square => {
   }
 }
 
-let currentTurn = 'Player X'
+let currentPlayer = 'Player X'
+let currentPlayerMark = 'X'
 
+// function that changes the current player
 const toggleTurn = () => {
-  if (currentTurn === 'Player X') {
-    currentTurn = 'Player O'
-    ui.displayPlayerTurn(currentTurn)
-  } else if (currentTurn === 'Player O') {
-    currentTurn = 'Player X'
-    ui.displayPlayerTurn(currentTurn)
+  if (currentPlayer === 'Player X') {
+    currentPlayer = 'Player O'
+    currentPlayerMark = 'O'
+    ui.displayPlayerTurn(currentPlayer)
+  } else if (currentPlayer === 'Player O') {
+    currentPlayer = 'Player X'
+    currentPlayerMark = 'X'
+    ui.displayPlayerTurn(currentPlayer)
   }
 }
 
+// function that marks a square based on whose turn it is
 const markSquare = (square) => {
-  if (currentTurn === 'Player X') {
-    $(square).text('X')
-  } else {
-    $(square).text('O')
+  $(square).text(currentPlayerMark)
+}
+
+const winConditions = [
+  [], // 0, data-ids 0, 1, and 2
+  [], // 1, data-ids 3, 4, and 5
+  [], // 2, data-ids 6, 7, and 8
+  [], // 3, data-ids 0, 3, and 6
+  [], // 4, data-ids 1, 4, and 7
+  [], // 5, data-ids 2, 5, and 8
+  [], // 6, data-ids 0, 4, and 8
+  [] // 7, data-ids 2, 4, and 6
+]
+
+const pushPlayerMark = id => {
+  board[id] = currentPlayerMark
+  switch (id) {
+    case 0:
+      winConditions[0].push(currentPlayerMark)
+      winConditions[3].push(currentPlayerMark)
+      winConditions[6].push(currentPlayerMark)
+      break
+    case 1:
+      winConditions[0].push(currentPlayerMark)
+      winConditions[4].push(currentPlayerMark)
+      break
+    case 2:
+      winConditions[0].push(currentPlayerMark)
+      winConditions[5].push(currentPlayerMark)
+      winConditions[7].push(currentPlayerMark)
+      break
+    case 3:
+      winConditions[1].push(currentPlayerMark)
+      winConditions[3].push(currentPlayerMark)
+      break
+    case 4:
+      winConditions[1].push(currentPlayerMark)
+      winConditions[4].push(currentPlayerMark)
+      winConditions[6].push(currentPlayerMark)
+      winConditions[7].push(currentPlayerMark)
+      break
+    case 5:
+      winConditions[1].push(currentPlayerMark)
+      winConditions[5].push(currentPlayerMark)
+      break
+    case 6:
+      winConditions[2].push(currentPlayerMark)
+      winConditions[3].push(currentPlayerMark)
+      winConditions[7].push(currentPlayerMark)
+      break
+    case 7:
+      winConditions[2].push(currentPlayerMark)
+      winConditions[4].push(currentPlayerMark)
+      break
+    case 8:
+      winConditions[2].push(currentPlayerMark)
+      winConditions[5].push(currentPlayerMark)
+      winConditions[6].push(currentPlayerMark)
+      break
   }
 }
 
+const checkX = (currString) => {
+  return currString === 'X'
+}
+
+const checkO = (currString) => {
+  return currString === 'O'
+}
+
+const checkTie = currString => currString === 'X' || currString === 'O'
+
+const didSomeoneWin = () => {
+  for (let i = 0; i < winConditions.length; i++) {
+    const didXWin = winConditions[i].every(checkX) && winConditions[i].length === 3
+    const didOWin = winConditions[i].every(checkO) && winConditions[i].length === 3
+    if (didXWin) {
+      return 'X won!'
+    } else if (didOWin) {
+      return 'O won!'
+    }
+  }
+  const didTheyTie = board.every(checkTie)
+  if (didTheyTie) {
+    return 'X and O have tied!'
+  }
+  return 'No one has won!'
+}
+
+// function that executes when someone clicks on a space in the board
 const onClickBoard = event => {
   event.preventDefault()
   const square = event.target
+  const id = $(square).data('id') // retrieves data-id value of square that was clicked
+  console.log(id)
   const isItMarked = checkSquare(square)
   if (isItMarked) {
     console.log('That move is invalid!')
   } else {
-    markSquare(square)
+    markSquare(square) // marks square with current player mark
+    pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
+    didSomeoneWin() // checks if someone/who has won
+    // console.log(winConditions)
+    // console.log(board)
+    console.log(didSomeoneWin())
+    // check if someone won
     toggleTurn()
   }
-  // const square = event.target
-  // console.log(square, $(square).text())
-  // if ($(square).text() === 'X' || $(square).text() === 'O') {
-  //   console.log('That move is invalid!')
-  // }
   // check if someone is in square
   // add current player marker
   // check if someone has won
