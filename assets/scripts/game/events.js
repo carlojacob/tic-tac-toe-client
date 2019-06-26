@@ -1,5 +1,7 @@
 'use strict'
 
+const ui = require('./ui')
+
 const checkSquare = square => {
   // const square = event.target
   // console.log(square, $(square).text())
@@ -10,18 +12,20 @@ const checkSquare = square => {
   }
 }
 
-let currentTurn = 'playerX'
+let currentTurn = 'Player X'
 
 const toggleTurn = () => {
-  if (currentTurn === 'playerX') {
-    currentTurn = 'playerO'
-  } else if (currentTurn === 'playerO') {
-    currentTurn = 'playerX'
+  if (currentTurn === 'Player X') {
+    currentTurn = 'Player O'
+    ui.displayPlayerTurn(currentTurn)
+  } else if (currentTurn === 'Player O') {
+    currentTurn = 'Player X'
+    ui.displayPlayerTurn(currentTurn)
   }
 }
 
 const markSquare = (square) => {
-  if (currentTurn === 'playerX') {
+  if (currentTurn === 'Player X') {
     $(square).text('X')
   } else {
     $(square).text('O')
