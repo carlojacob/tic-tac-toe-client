@@ -1,6 +1,6 @@
 'use strict'
 
-// const store = require('./../store')
+const store = require('./../store')
 
 const successMessage = message => {
   $('#game-message').text(message)
@@ -16,11 +16,12 @@ const failureMessage = message => {
   $('form').trigger('reset') // clears out form fields
 }
 
-const newGameSuccessful = () => {
+const newGameSuccessful = responseData => {
   successMessage('Your new game has been created!')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
   $('#game-status').html('')
+  store.game = responseData.game
 }
 
 const newGameFailure = () => {

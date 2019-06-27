@@ -142,16 +142,18 @@ const onClickBoard = event => {
   event.preventDefault()
   const square = event.target
   const id = $(square).data('id') // retrieves data-id value of square that was clicked
-  console.log(id)
   const isItMarked = checkSquare(square)
   if (isItMarked) {
     ui.invalidMove()
   } else if (isItOver) {
     ui.gameOverMessage()
   } else {
-    ui.markSquare(square, currentPlayerMark) // marks square with current player mark
     pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
     isItOver = isTheGameOver() // checks if someone/who has won
+    api.clickBoard(id, currentPlayerMark, isItOver)
+      .then(console.log)
+      .catch(console.error)
+    ui.markSquare(square, currentPlayerMark) // marks square with current player mark
     if (!isItOver) {
       toggleTurn()
     }
