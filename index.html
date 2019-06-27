@@ -12,8 +12,41 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
+      <h2 id="auth-message"></h2>
+      <div class="container">
+        <div class="row">
+          <form id="sign-up" class="col-md-6 mb-5">
+            <h3>Sign Up</h3>
+            <input class="form-control mb-1" type="email" name="credentials[email]" placeholder="Email">
+            <input class="form-control mb-1" type="password" name="credentials[password]" placeholder="Password">
+            <input class="form-control mb-1" type="password" name="credentials[password_confirmation]" placeholder="Confirm Password">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+          </form>
+          <form id="sign-in" class="col-md-6 mb-5">
+            <h3>Sign In</h3>
+            <input class="form-control mb-1" type="email" name="credentials[email]" placeholder="Email">
+            <input class="form-control mb-1" type="password" name="credentials[password]" placeholder="Password">
+            <button class="btn btn-primary" type="submit">Sign In</button>
+          </form>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <form id="change-password" class="col-md-6 mb-5 hidden">
+            <h3>Change Password</h3>
+            <input class="form-control mb-1" type="password" name="passwords[old]" placeholder="Old Password">
+            <input class="form-control mb-1" type="password" name="passwords[new]" placeholder="New Password">
+            <button class="btn btn-primary" type="submit">Change Password</button>
+          </form>
+          <form id="sign-out" class="col-md-6 mb-5 hidden">
+            <h3>Sign Out</h3>
+            <button class="btn btn-primary" type="submit">Sign Out</button>
+          </form>
+        </div>
+      </div>
+
       <h1>Tic Tac Toe Board</h1>
-      <h2 id="message">Message</h2>
+      <h2 id="message"></h2>
       <h3 id="player-turn">Player X goes first!</h3>
       <h3 id="game-status"></h3>
       <div class="container">
