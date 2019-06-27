@@ -1,8 +1,42 @@
 'use strict'
 
+const api = require('./api')
 const ui = require('./ui')
 
-const board = ['', '', '', '', '', '', '', '', '']
+let winConditions = [
+  [], // 0, data-ids 0, 1, and 2
+  [], // 1, data-ids 3, 4, and 5
+  [], // 2, data-ids 6, 7, and 8
+  [], // 3, data-ids 0, 3, and 6
+  [], // 4, data-ids 1, 4, and 7
+  [], // 5, data-ids 2, 5, and 8
+  [], // 6, data-ids 0, 4, and 8
+  [] // 7, data-ids 2, 4, and 6
+]
+
+let board = ['', '', '', '', '', '', '', '', '']
+
+let didXWin = false
+let didOWin = false
+let didTheyTie = false
+let isItOver = false
+
+const resetGame = () => {
+  winConditions = [[], [], [], [], [], [], [], []]
+  board = ['', '', '', '', '', '', '', '', '']
+  didXWin = false
+  didOWin = false
+  didTheyTie = false
+  isItOver = false
+}
+
+const onNewGame = event => {
+  event.preventDefault()
+  api.newGame()
+    .then(ui.newGameSuccessful)
+    .catch(ui.newGameFailure)
+  resetGame()
+}
 
 // function that checks if a square has already been marked
 const checkSquare = square => {
@@ -28,22 +62,6 @@ const toggleTurn = () => {
     ui.displayPlayerTurn(currentPlayer)
   }
 }
-
-// function that marks a square based on whose turn it is
-const markSquare = (square) => {
-  $(square).text(currentPlayerMark)
-}
-
-const winConditions = [
-  [], // 0, data-ids 0, 1, and 2
-  [], // 1, data-ids 3, 4, and 5
-  [], // 2, data-ids 6, 7, and 8
-  [], // 3, data-ids 0, 3, and 6
-  [], // 4, data-ids 1, 4, and 7
-  [], // 5, data-ids 2, 5, and 8
-  [], // 6, data-ids 0, 4, and 8
-  [] // 7, data-ids 2, 4, and 6
-]
 
 const pushPlayerMark = id => {
   board[id] = currentPlayerMark
@@ -93,11 +111,6 @@ const pushPlayerMark = id => {
   }
 }
 
-let didXWin = false
-let didOWin = false
-let didTheyTie = false
-let isItOver
-
 const checkX = currString => currString === 'X'
 
 const checkO = currString => currString === 'O'
@@ -136,12 +149,12 @@ const onClickBoard = event => {
   } else if (isItOver) {
     ui.gameOverMessage()
   } else {
-    markSquare(square) // marks square with current player mark
+    ui.markSquare(square, currentPlayerMark) // marks square with current player mark
     pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
     isItOver = isTheGameOver() // checks if someone/who has won
-    console.log(board)
-    console.log(isTheGameOver(), isItOver)
-    toggleTurn()
+    if (!isItOver) {
+      toggleTurn()
+    }
   }
   // check if someone is in square
   // add current player marker
@@ -153,5 +166,6 @@ const onClickBoard = event => {
 }
 
 module.exports = {
-  onClickBoard
+  onClickBoard,
+  onNewGame
 }
