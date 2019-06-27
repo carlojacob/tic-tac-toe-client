@@ -20,4 +20,6 @@ $(() => {
   $('#new-game').on('click', gameEvents.onNewGame)
 
   $('.board').on('click', gameEvents.onClickBoard)
+
+  $('#index-games').on('click', gameEvents.onIndexGames)
 })

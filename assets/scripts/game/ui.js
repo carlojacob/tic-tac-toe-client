@@ -6,14 +6,12 @@ const successMessage = message => {
   $('#game-message').text(message)
   $('#game-message').removeClass('failure')
   $('#game-message').addClass('success')
-  $('form').trigger('reset') // clears out form fields
 }
 
 const failureMessage = message => {
   $('#game-message').text(message)
   $('#game-message').removeClass('success')
   $('#game-message').addClass('failure')
-  $('form').trigger('reset') // clears out form fields
 }
 
 const newGameSuccessful = responseData => {
@@ -21,11 +19,23 @@ const newGameSuccessful = responseData => {
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
   $('#game-status').html('')
+  $('#games-played').html('')
   store.game = responseData.game
 }
 
 const newGameFailure = () => {
   failureMessage('Failed to create new game!')
+}
+
+const clickBoardSuccessful = responseData => {
+  $('#game-message').html('')
+  $('#games-played').html('')
+  store.game = responseData.game
+  console.log(store.game)
+}
+
+const clickBoardFailure = () => {
+  failureMessage('Click failed, please try again.')
 }
 
 const markSquare = (square, currentPlayerMark) => {
@@ -51,16 +61,28 @@ const displayTie = () => {
 }
 
 const gameOverMessage = () => {
-  $('#game-message').text('The game is over! Please start a new one.')
+  failureMessage('The game is over! Please start a new one.')
+}
+
+const indexGamesSuccess = responseData => {
+  $('#games-played').text(`You've played ${responseData.games.length} games!`)
+}
+
+const indexGamesFailure = () => {
+  $('#games-played').text('Failed to retrieve game data')
 }
 
 module.exports = {
   newGameSuccessful,
   newGameFailure,
+  clickBoardSuccessful,
+  clickBoardFailure,
   markSquare,
   displayPlayerTurn,
   invalidMove,
   displayVictory,
   displayTie,
-  gameOverMessage
+  gameOverMessage,
+  indexGamesSuccess,
+  indexGamesFailure
 }
