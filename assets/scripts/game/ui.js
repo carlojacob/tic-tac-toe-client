@@ -20,6 +20,7 @@ const newGameSuccessful = responseData => {
   $('#player-turn').text('Player X goes first!')
   $('#game-status').html('')
   $('#games-played').html('')
+  $('.board').removeClass('win-highlight')
   store.game = responseData.game
 }
 
@@ -38,21 +39,24 @@ const clickBoardFailure = () => {
   failureMessage('Click failed, please try again.')
 }
 
-const markSquare = (square, currentPlayerMark) => {
-  $(square).text(currentPlayerMark)
+const markSquare = () => {
+  $(store.currSquare).text(store.currentPlayerMark)
 }
 
-const displayPlayerTurn = currPlayer => {
-  $('#player-turn').text(`It is ${currPlayer}s turn`)
+const displayPlayerTurn = () => {
+  $('#player-turn').text(`It is ${store.currentPlayer}s turn`)
 }
 
 const invalidMove = () => {
   $('#game-message').text('That move is invalid!')
 }
 
-const displayVictory = victor => {
-  $('#game-status').text(`Player ${victor} has won!`)
+const displayVictory = () => {
+  $('#game-status').text(`Player ${store.currentPlayerMark} has won!`)
   $('#player-turn').text('Game over!')
+  $(`*[data-id="${store.winSquares[0]}"]`).addClass('win-highlight')
+  $(`*[data-id="${store.winSquares[1]}"]`).addClass('win-highlight')
+  $(`*[data-id="${store.winSquares[2]}"]`).addClass('win-highlight')
 }
 
 const displayTie = () => {

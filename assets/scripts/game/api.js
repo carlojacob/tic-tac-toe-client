@@ -14,7 +14,7 @@ const newGame = () => {
   })
 }
 
-const clickBoard = (index, value, over) => {
+const clickBoard = () => {
   return $.ajax({
     url: config.apiUrl + '/games/' + store.game.id,
     method: 'PATCH',
@@ -24,10 +24,10 @@ const clickBoard = (index, value, over) => {
     data: {
       game: {
         cell: {
-          index: index,
-          value: value
+          index: store.currId,
+          value: store.currentPlayerMark
         },
-        over: over
+        over: store.isItOver
       }
     }
   })

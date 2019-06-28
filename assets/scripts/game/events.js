@@ -1,33 +1,30 @@
 'use strict'
 
+const store = require('./../store')
 const api = require('./api')
 const ui = require('./ui')
 
-let winConditions = [
-  [], // 0, data-ids 0, 1, and 2
-  [], // 1, data-ids 3, 4, and 5
-  [], // 2, data-ids 6, 7, and 8
-  [], // 3, data-ids 0, 3, and 6
-  [], // 4, data-ids 1, 4, and 7
-  [], // 5, data-ids 2, 5, and 8
-  [], // 6, data-ids 0, 4, and 8
-  [] // 7, data-ids 2, 4, and 6
+store.winIds = [
+  [0, 1, 2], // 0, data-ids 0, 1, and 2
+  [3, 4, 5], // 1, data-ids 3, 4, and 5
+  [6, 7, 8], // 2, data-ids 6, 7, and 8
+  [0, 3, 6], // 3, data-ids 0, 3, and 6
+  [1, 4, 7], // 4, data-ids 1, 4, and 7
+  [2, 5, 8], // 5, data-ids 2, 5, and 8
+  [0, 4, 8], // 6, data-ids 0, 4, and 8
+  [2, 4, 6] // 7, data-ids 2, 4, and 6
 ]
 
-let board = ['', '', '', '', '', '', '', '', '']
-
-let didXWin = false
-let didOWin = false
-let didTheyTie = false
-let isItOver = false
-
+// function that resets the game logic
 const resetGame = () => {
-  winConditions = [[], [], [], [], [], [], [], []]
-  board = ['', '', '', '', '', '', '', '', '']
-  didXWin = false
-  didOWin = false
-  didTheyTie = false
-  isItOver = false
+  store.currentPlayer = 'Player x'
+  store.currentPlayerMark = 'x'
+  store.winConditions = [[], [], [], [], [], [], [], []]
+  store.board = ['', '', '', '', '', '', '', '', '']
+  store.didXWin = false
+  store.didOWin = false
+  store.didTheyTie = false
+  store.isItOver = false
 }
 
 const onNewGame = event => {
@@ -40,97 +37,96 @@ const onNewGame = event => {
 
 // function that checks if a square has already been marked
 const checkSquare = square => {
-  if ($(square).text() === 'X' || $(square).text() === 'O') {
+  if ($(square).text() === 'x' || $(square).text() === 'o') {
     return true
   } else {
     return false
   }
 }
 
-let currentPlayer = 'Player X'
-let currentPlayerMark = 'X'
-
 // function that changes the current player
 const toggleTurn = () => {
-  if (currentPlayer === 'Player X') {
-    currentPlayer = 'Player O'
-    currentPlayerMark = 'O'
-    ui.displayPlayerTurn(currentPlayer)
-  } else if (currentPlayer === 'Player O') {
-    currentPlayer = 'Player X'
-    currentPlayerMark = 'X'
-    ui.displayPlayerTurn(currentPlayer)
+  if (store.currentPlayer === 'Player x') {
+    store.currentPlayer = 'Player o'
+    store.currentPlayerMark = 'o'
+    ui.displayPlayerTurn()
+  } else if (store.currentPlayer === 'Player o') {
+    store.currentPlayer = 'Player x'
+    store.currentPlayerMark = 'x'
+    ui.displayPlayerTurn()
   }
 }
 
 const pushPlayerMark = id => {
-  board[id] = currentPlayerMark
+  store.board[id] = store.currentPlayerMark
   switch (id) {
     case 0:
-      winConditions[0].push(currentPlayerMark)
-      winConditions[3].push(currentPlayerMark)
-      winConditions[6].push(currentPlayerMark)
+      store.winConditions[0].push(store.currentPlayerMark)
+      store.winConditions[3].push(store.currentPlayerMark)
+      store.winConditions[6].push(store.currentPlayerMark)
       break
     case 1:
-      winConditions[0].push(currentPlayerMark)
-      winConditions[4].push(currentPlayerMark)
+      store.winConditions[0].push(store.currentPlayerMark)
+      store.winConditions[4].push(store.currentPlayerMark)
       break
     case 2:
-      winConditions[0].push(currentPlayerMark)
-      winConditions[5].push(currentPlayerMark)
-      winConditions[7].push(currentPlayerMark)
+      store.winConditions[0].push(store.currentPlayerMark)
+      store.winConditions[5].push(store.currentPlayerMark)
+      store.winConditions[7].push(store.currentPlayerMark)
       break
     case 3:
-      winConditions[1].push(currentPlayerMark)
-      winConditions[3].push(currentPlayerMark)
+      store.winConditions[1].push(store.currentPlayerMark)
+      store.winConditions[3].push(store.currentPlayerMark)
       break
     case 4:
-      winConditions[1].push(currentPlayerMark)
-      winConditions[4].push(currentPlayerMark)
-      winConditions[6].push(currentPlayerMark)
-      winConditions[7].push(currentPlayerMark)
+      store.winConditions[1].push(store.currentPlayerMark)
+      store.winConditions[4].push(store.currentPlayerMark)
+      store.winConditions[6].push(store.currentPlayerMark)
+      store.winConditions[7].push(store.currentPlayerMark)
       break
     case 5:
-      winConditions[1].push(currentPlayerMark)
-      winConditions[5].push(currentPlayerMark)
+      store.winConditions[1].push(store.currentPlayerMark)
+      store.winConditions[5].push(store.currentPlayerMark)
       break
     case 6:
-      winConditions[2].push(currentPlayerMark)
-      winConditions[3].push(currentPlayerMark)
-      winConditions[7].push(currentPlayerMark)
+      store.winConditions[2].push(store.currentPlayerMark)
+      store.winConditions[3].push(store.currentPlayerMark)
+      store.winConditions[7].push(store.currentPlayerMark)
       break
     case 7:
-      winConditions[2].push(currentPlayerMark)
-      winConditions[4].push(currentPlayerMark)
+      store.winConditions[2].push(store.currentPlayerMark)
+      store.winConditions[4].push(store.currentPlayerMark)
       break
     case 8:
-      winConditions[2].push(currentPlayerMark)
-      winConditions[5].push(currentPlayerMark)
-      winConditions[6].push(currentPlayerMark)
+      store.winConditions[2].push(store.currentPlayerMark)
+      store.winConditions[5].push(store.currentPlayerMark)
+      store.winConditions[6].push(store.currentPlayerMark)
       break
   }
 }
 
-const checkX = currString => currString === 'X'
+const checkX = currString => currString === 'x'
 
-const checkO = currString => currString === 'O'
+const checkO = currString => currString === 'o'
 
-const checkTie = currString => currString === 'X' || currString === 'O'
+const checkTie = currString => currString === 'x' || currString === 'o'
 
 const isTheGameOver = () => {
-  for (let i = 0; i < winConditions.length; i++) {
-    didXWin = winConditions[i].every(checkX) && winConditions[i].length === 3
-    didOWin = winConditions[i].every(checkO) && winConditions[i].length === 3
-    if (didXWin) {
-      ui.displayVictory(currentPlayerMark)
+  for (let i = 0; i < store.winConditions.length; i++) {
+    store.didXWin = store.winConditions[i].every(checkX) && store.winConditions[i].length === 3
+    store.didOWin = store.winConditions[i].every(checkO) && store.winConditions[i].length === 3
+    if (store.didXWin) {
+      store.winSquares = store.winIds[i]
+      ui.displayVictory()
       return true
-    } else if (didOWin) {
-      ui.displayVictory(currentPlayerMark)
+    } else if (store.didOWin) {
+      store.winSquares = store.winIds[i]
+      ui.displayVictory()
       return true
     }
   }
-  didTheyTie = board.every(checkTie)
-  if (didTheyTie) {
+  store.didTheyTie = store.board.every(checkTie)
+  if (store.didTheyTie) {
     ui.displayTie()
     return true
   }
@@ -140,31 +136,24 @@ const isTheGameOver = () => {
 // function that executes when someone clicks on a space in the board
 const onClickBoard = event => {
   event.preventDefault()
-  const square = event.target
-  const id = $(square).data('id') // retrieves data-id value of square that was clicked
-  const isItMarked = checkSquare(square)
-  if (isItOver) {
+  store.currSquare = event.target
+  store.currId = $(store.currSquare).data('id') // retrieves data-id value of square that was clicked
+  const isItMarked = checkSquare(store.currSquare)
+  if (store.isItOver) {
     ui.gameOverMessage()
   } else if (isItMarked) {
     ui.invalidMove()
   } else {
-    ui.markSquare(square, currentPlayerMark) // marks square with current player mark
-    pushPlayerMark(id) // pushes current player mark to appropriate win condition arrays
-    isItOver = isTheGameOver() // checks if someone/who has won
-    api.clickBoard(id, currentPlayerMark, isItOver)
+    ui.markSquare() // marks square with current player mark
+    pushPlayerMark(store.currId) // pushes current player mark to appropriate win condition arrays
+    store.isItOver = isTheGameOver() // checks if someone/who has won
+    api.clickBoard()
       .then(ui.clickBoardSuccessful)
       .catch(ui.clickBoardFailure)
-    if (!isItOver) {
+    if (!store.isItOver) {
       toggleTurn()
     }
   }
-  // check if someone is in square
-  // add current player marker
-  // check if someone has won
-  // toggle player turn
-
-  // update api
-  // update ui
 }
 
 const onIndexGames = event => {
