@@ -60,49 +60,13 @@ const toggleTurn = () => {
 
 const pushPlayerMark = id => {
   store.board[id] = store.currentPlayerMark
-  switch (id) {
-    case 0:
-      store.winConditions[0].push(store.currentPlayerMark)
-      store.winConditions[3].push(store.currentPlayerMark)
-      store.winConditions[6].push(store.currentPlayerMark)
-      break
-    case 1:
-      store.winConditions[0].push(store.currentPlayerMark)
-      store.winConditions[4].push(store.currentPlayerMark)
-      break
-    case 2:
-      store.winConditions[0].push(store.currentPlayerMark)
-      store.winConditions[5].push(store.currentPlayerMark)
-      store.winConditions[7].push(store.currentPlayerMark)
-      break
-    case 3:
-      store.winConditions[1].push(store.currentPlayerMark)
-      store.winConditions[3].push(store.currentPlayerMark)
-      break
-    case 4:
-      store.winConditions[1].push(store.currentPlayerMark)
-      store.winConditions[4].push(store.currentPlayerMark)
-      store.winConditions[6].push(store.currentPlayerMark)
-      store.winConditions[7].push(store.currentPlayerMark)
-      break
-    case 5:
-      store.winConditions[1].push(store.currentPlayerMark)
-      store.winConditions[5].push(store.currentPlayerMark)
-      break
-    case 6:
-      store.winConditions[2].push(store.currentPlayerMark)
-      store.winConditions[3].push(store.currentPlayerMark)
-      store.winConditions[7].push(store.currentPlayerMark)
-      break
-    case 7:
-      store.winConditions[2].push(store.currentPlayerMark)
-      store.winConditions[4].push(store.currentPlayerMark)
-      break
-    case 8:
-      store.winConditions[2].push(store.currentPlayerMark)
-      store.winConditions[5].push(store.currentPlayerMark)
-      store.winConditions[6].push(store.currentPlayerMark)
-      break
+  for (let i = 0; i < store.winIds.length; i++) {
+    const shouldItPush = store.winIds[i].some(function (currNum) {
+      return store.currId === currNum
+    })
+    if (shouldItPush) {
+      store.winConditions[i].push(store.currentPlayerMark)
+    }
   }
 }
 
