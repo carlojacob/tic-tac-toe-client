@@ -132,7 +132,6 @@ const onShowGame = event => {
   event.preventDefault()
   const form = event.target
   const formData = getFormFields(form)
-  console.log(formData)
   api.showGame(formData)
     .then(ui.showGameSuccess)
     .catch(ui.showGameFailure)

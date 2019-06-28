@@ -35,7 +35,6 @@ const clickBoardSuccessful = responseData => {
   $('#game-message').html('')
   $('#games-played').html('')
   store.game = responseData.game
-  console.log(store.game)
 }
 
 const clickBoardFailure = () => {
