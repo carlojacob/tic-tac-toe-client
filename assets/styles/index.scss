@@ -2,6 +2,7 @@
 
 .board {
   border: 1px solid;
+  font-size: 60px;
   height: 100px;
 }
 
@@ -13,6 +14,19 @@
   display: none;
 }
 
+.o-highlight {
+  background-color: #5FA1D3;
+  color: #ffffff;
+}
+
+.player-x {
+  color: #f5535e;
+}
+
+.player-o {
+  color: #5FA1D3;
+}
+
 .small-board {
   border: 1px solid;
   height: 25px;
@@ -22,6 +36,7 @@
   background-color: #080;
 }
 
-.win-highlight {
-  background-color: #009999;
+.x-highlight {
+  background-color: #f5535e;
+  color: #ffffff;
 }

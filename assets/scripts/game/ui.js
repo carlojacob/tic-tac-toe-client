@@ -25,7 +25,7 @@ const newGameSuccessful = responseData => {
   $('#game-id').text(`Current game ID: ${store.game.id}`)
   $('#game-status').html('')
   $('#games-played').html('')
-  $('.board').removeClass('win-highlight')
+  $('.board').removeClass('o-highlight x-highlight player-x player-o')
 }
 
 const newGameFailure = () => {
@@ -43,6 +43,7 @@ const clickBoardFailure = () => {
 }
 
 const markSquare = () => {
+  $(store.currSquare).addClass(`player-${store.currentPlayerMark}`)
   $(store.currSquare).text(store.currentPlayerMark)
 }
 
@@ -57,9 +58,12 @@ const invalidMove = () => {
 const displayVictory = () => {
   $('#game-status').text(`Player ${store.currentPlayerMark} has won!`)
   $('#player-turn').text('Game over!')
-  $(`*[data-id="${store.winSquares[0]}"]`).addClass('win-highlight')
-  $(`*[data-id="${store.winSquares[1]}"]`).addClass('win-highlight')
-  $(`*[data-id="${store.winSquares[2]}"]`).addClass('win-highlight')
+  $(`*[data-id="${store.winSquares[0]}"]`).removeClass(`player-${store.currentPlayerMark}`)
+  $(`*[data-id="${store.winSquares[1]}"]`).removeClass(`player-${store.currentPlayerMark}`)
+  $(`*[data-id="${store.winSquares[2]}"]`).removeClass(`player-${store.currentPlayerMark}`)
+  $(`*[data-id="${store.winSquares[0]}"]`).addClass(`${store.currentPlayerMark}-highlight`)
+  $(`*[data-id="${store.winSquares[1]}"]`).addClass(`${store.currentPlayerMark}-highlight`)
+  $(`*[data-id="${store.winSquares[2]}"]`).addClass(`${store.currentPlayerMark}-highlight`)
 }
 
 const displayTie = () => {
