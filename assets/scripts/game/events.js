@@ -137,9 +137,15 @@ const onShowGame = event => {
     .catch(ui.showGameFailure)
 }
 
+const onClearResults = event => {
+  event.preventDefault()
+  ui.clearResults()
+}
+
 module.exports = {
   onClickBoard,
   onNewGame,
   onIndexGames,
-  onShowGame
+  onShowGame,
+  onClearResults
 }

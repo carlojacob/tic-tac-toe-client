@@ -2,12 +2,12 @@
 
 const store = require('./../store')
 
-const successMessage = message => {
-  $('#game-message').text(message)
-  $('#game-message').removeClass('failure')
-  $('#game-message').addClass('success')
-  $('form').trigger('reset')
-}
+// const successMessage = message => {
+//   $('#game-message').text(message)
+//   $('#game-message').removeClass('failure')
+//   $('#game-message').addClass('success')
+//   $('form').trigger('reset')
+// }
 
 const failureMessage = message => {
   $('#game-message').text(message)
@@ -18,7 +18,8 @@ const failureMessage = message => {
 
 const newGameSuccessful = responseData => {
   store.game = responseData.game
-  successMessage('Your new game has been created!')
+  // successMessage('Your new game has been created!')
+  $('#game-board').removeClass('hidden')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
   $('#game-id').text(`Current game ID: ${store.game.id}`)
@@ -89,11 +90,15 @@ const showGameSuccess = responseData => {
   $('*[data-id="06"]').text(`${responseData.game.cells[6]}`)
   $('*[data-id="07"]').text(`${responseData.game.cells[7]}`)
   $('*[data-id="08"]').text(`${responseData.game.cells[8]}`)
-  $('#show-game-board').removeClass('hidden')
+  $('#show-small-board').removeClass('hidden')
 }
 
 const showGameFailure = () => {
   failureMessage('Unable to find game corresponding to that ID')
+}
+
+const clearResults = () => {
+  $('#show-small-board').addClass('hidden')
 }
 
 module.exports = {
@@ -110,5 +115,6 @@ module.exports = {
   indexGamesSuccess,
   indexGamesFailure,
   showGameSuccess,
-  showGameFailure
+  showGameFailure,
+  clearResults
 }

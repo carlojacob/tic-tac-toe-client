@@ -2,69 +2,89 @@
 
 const store = require('./../store')
 
-const successMessage = message => {
-  $('#auth-message').text(message)
-  $('#auth-message').removeClass('failure')
-  $('#auth-message').addClass('success')
-  $('form').trigger('reset') // clears out form fields
-}
-
-const failureMessage = message => {
-  $('#auth-message').text(message)
-  $('#auth-message').removeClass('success')
-  $('#auth-message').addClass('failure')
-  $('form').trigger('reset') // clears out form fields
-}
+// const successMessage = message => {
+//   $('#auth-message').text(message)
+//   $('#auth-message').removeClass('failure')
+//   $('#auth-message').addClass('success')
+//   $('form').trigger('reset') // clears out form fields
+// }
+//
+// const failureMessage = message => {
+//   $('#auth-message').text(message)
+//   $('#auth-message').removeClass('success')
+//   $('#auth-message').addClass('failure')
+//   $('form').trigger('reset') // clears out form fields
+// }
 
 const hideSignIn = () => {
-  $('#change-password').removeClass('hidden')
-  $('#sign-out').removeClass('hidden')
-  $('#sign-up').addClass('hidden')
-  $('#sign-in').addClass('hidden')
+  $('#auth-forms').removeClass('hidden')
+  $('nav').removeClass('hidden')
+  $('#landing-page').addClass('hidden')
 }
 
 const hideSignOut = () => {
-  $('#sign-up').removeClass('hidden')
-  $('#sign-in').removeClass('hidden')
-  $('#change-password').addClass('hidden')
-  $('#sign-out').addClass('hidden')
+  $('#auth-forms').addClass('hidden')
+  $('nav').addClass('hidden')
+  $('#landing-page').removeClass('hidden')
 }
 
 const signUpSuccessful = responseData => {
-  successMessage('You signed up successfully!')
+  $('#sign-up-message').text('You signed up successfully! Please sign in below.')
+  $('#sign-in-message').text('')
+  $('#auth-message').text('')
+  $('form').trigger('reset')
 }
 
 const signUpFailure = () => {
-  failureMessage('Your sign up failed!')
+  $('#sign-up-message').text('That email is taken, plaese try a different one.')
+  $('#sign-in-message').text('')
+  $('#auth-message').text('')
+  $('form').trigger('reset')
+  // failureMessage('Your sign up failed!')
 }
 
 const signInSuccessful = responseData => {
-  successMessage('You signed in successfully!')
+  // successMessage('You signed in successfully!')
   hideSignIn()
+  $('#sign-up-message').text('')
+  $('#sign-in-message').text('')
+  $('#auth-message').text('')
   // keeping track of the user so we can have the token for the API
   // we use `store` so we can access the token in any file
   store.user = responseData.user
 }
 
 const signInFailure = () => {
-  failureMessage('Your sign in failed!')
+  $('#sign-in-message').text('Incorrect email or password')
+  $('#sign-up-message').text('')
+  $('#auth-message').text('')
+  $('form').trigger('reset')
+  // failureMessage('Your sign in failed!')
 }
 
 const changePasswordSuccessful = () => {
-  successMessage('You changed your password successfully!')
+  $('#change-pw-message').text('You changed your password successfully')
+  $('#sign-out-message').text('')
+  $('form').trigger('reset')
 }
 
 const changePasswordFailure = () => {
-  failureMessage('Failed to change password!')
+  $('#change-pw-message').text('Failed to change password')
+  $('#sign-out-message').text('')
+  $('form').trigger('reset')
 }
 
 const signOutSuccessful = () => {
-  successMessage('You signed out successfully!')
+  $('#auth-message').text('You signed out successfully')
+  $('#change-pw-message').text('')
+  $('#sign-out-message').text('')
   hideSignOut()
+  $('#game-board').addClass('hidden')
 }
 
 const signOutFailure = () => {
-  failureMessage('Failed to sign out!')
+  $('#sign-out-message').text('Failed to sign out')
+  $('#change-pw-message').text('')
 }
 
 module.exports = {
