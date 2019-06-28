@@ -9,12 +9,17 @@
   background-color: #F00;
 }
 
-.success {
-  background-color: #080;
-}
-
 .hidden {
   display: none;
+}
+
+.small-board {
+  border: 1px solid;
+  height: 25px;
+}
+
+.success {
+  background-color: #080;
 }
 
 .win-highlight {

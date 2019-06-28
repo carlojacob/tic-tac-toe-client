@@ -33,9 +33,19 @@ const clickBoard = () => {
   })
 }
 
-const indexGames = function () {
+const indexGames = () => {
   return $.ajax({
     url: config.apiUrl + '/games',
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
+const showGame = formData => {
+  return $.ajax({
+    url: config.apiUrl + '/games/' + formData.games.id,
     method: 'GET',
     headers: {
       Authorization: 'Token token=' + store.user.token
@@ -46,5 +56,6 @@ const indexGames = function () {
 module.exports = {
   newGame,
   clickBoard,
-  indexGames
+  indexGames,
+  showGame
 }

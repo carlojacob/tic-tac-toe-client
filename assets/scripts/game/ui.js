@@ -6,22 +6,25 @@ const successMessage = message => {
   $('#game-message').text(message)
   $('#game-message').removeClass('failure')
   $('#game-message').addClass('success')
+  $('form').trigger('reset')
 }
 
 const failureMessage = message => {
   $('#game-message').text(message)
   $('#game-message').removeClass('success')
   $('#game-message').addClass('failure')
+  $('form').trigger('reset')
 }
 
 const newGameSuccessful = responseData => {
+  store.game = responseData.game
   successMessage('Your new game has been created!')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
+  $('#game-id').text(`Current game ID: ${store.game.id}`)
   $('#game-status').html('')
   $('#games-played').html('')
   $('.board').removeClass('win-highlight')
-  store.game = responseData.game
 }
 
 const newGameFailure = () => {
@@ -76,6 +79,24 @@ const indexGamesFailure = () => {
   $('#games-played').text('Failed to retrieve game data')
 }
 
+const showGameSuccess = responseData => {
+  $('form').trigger('reset')
+  $('*[data-id="00"]').text(`${responseData.game.cells[0]}`)
+  $('*[data-id="01"]').text(`${responseData.game.cells[1]}`)
+  $('*[data-id="02"]').text(`${responseData.game.cells[2]}`)
+  $('*[data-id="03"]').text(`${responseData.game.cells[3]}`)
+  $('*[data-id="04"]').text(`${responseData.game.cells[4]}`)
+  $('*[data-id="05"]').text(`${responseData.game.cells[5]}`)
+  $('*[data-id="06"]').text(`${responseData.game.cells[6]}`)
+  $('*[data-id="07"]').text(`${responseData.game.cells[7]}`)
+  $('*[data-id="08"]').text(`${responseData.game.cells[8]}`)
+  $('#show-game-board').removeClass('hidden')
+}
+
+const showGameFailure = () => {
+  failureMessage('Unable to find game corresponding to that ID')
+}
+
 module.exports = {
   newGameSuccessful,
   newGameFailure,
@@ -88,5 +109,7 @@ module.exports = {
   displayTie,
   gameOverMessage,
   indexGamesSuccess,
-  indexGamesFailure
+  indexGamesFailure,
+  showGameSuccess,
+  showGameFailure
 }

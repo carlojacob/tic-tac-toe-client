@@ -22,4 +22,6 @@ $(() => {
   $('.board').on('click', gameEvents.onClickBoard)
 
   $('#index-games').on('click', gameEvents.onIndexGames)
+
+  $('#show-game').on('submit', gameEvents.onShowGame)
 })

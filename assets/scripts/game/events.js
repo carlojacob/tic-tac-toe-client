@@ -1,5 +1,6 @@
 'use strict'
 
+const getFormFields = require('./../../../lib/get-form-fields')
 const store = require('./../store')
 const api = require('./api')
 const ui = require('./ui')
@@ -163,8 +164,19 @@ const onIndexGames = event => {
     .catch(ui.indexGamesFailure)
 }
 
+const onShowGame = event => {
+  event.preventDefault()
+  const form = event.target
+  const formData = getFormFields(form)
+  console.log(formData)
+  api.showGame(formData)
+    .then(ui.showGameSuccess)
+    .catch(ui.showGameFailure)
+}
+
 module.exports = {
   onClickBoard,
   onNewGame,
-  onIndexGames
+  onIndexGames,
+  onShowGame
 }
