@@ -13,9 +13,13 @@ $(() => {
 
   $('#sign-in').on('submit', authEvents.onSignIn)
 
+  $('#home').on('click', authEvents.onHome)
+
+  $('#pw-dropdown').on('click', authEvents.onPwDropdown)
+
   $('#change-password').on('submit', authEvents.onChangePassword)
 
-  $('#sign-out').on('submit', authEvents.onSignOut)
+  $('#sign-out').on('click', authEvents.onSignOut)
 
   $('#new-game').on('click', gameEvents.onNewGame)
 

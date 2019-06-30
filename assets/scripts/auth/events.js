@@ -38,9 +38,19 @@ const onSignOut = event => {
     .catch(ui.signOutFailure)
 }
 
+const onHome = event => {
+  ui.home()
+}
+
+const onPwDropdown = event => {
+  ui.pwDropdown()
+}
+
 module.exports = {
   onSignUp,
   onSignIn,
   onChangePassword,
-  onSignOut
+  onSignOut,
+  onPwDropdown,
+  onHome
 }

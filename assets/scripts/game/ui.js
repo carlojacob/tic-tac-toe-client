@@ -2,20 +2,6 @@
 
 const store = require('./../store')
 
-// const successMessage = message => {
-//   $('#game-message').text(message)
-//   $('#game-message').removeClass('failure')
-//   $('#game-message').addClass('success')
-//   $('form').trigger('reset')
-// }
-
-const failureMessage = message => {
-  $('#game-message').text(message)
-  $('#game-message').removeClass('success')
-  $('#game-message').addClass('failure')
-  $('form').trigger('reset')
-}
-
 const newGameSuccessful = responseData => {
   store.game = responseData.game
   // successMessage('Your new game has been created!')
@@ -24,12 +10,13 @@ const newGameSuccessful = responseData => {
   $('#player-turn').text('Player X goes first!')
   $('#game-id').text(`Current game ID: ${store.game.id}`)
   $('#game-status').html('')
+  $('#game-message').html('')
   $('#games-played').html('')
   $('.board').removeClass('o-highlight x-highlight player-x player-o')
 }
 
 const newGameFailure = () => {
-  failureMessage('Failed to create new game!')
+  $('#game-message').text('Failed to create new game!')
 }
 
 const clickBoardSuccessful = responseData => {
@@ -39,10 +26,11 @@ const clickBoardSuccessful = responseData => {
 }
 
 const clickBoardFailure = () => {
-  failureMessage('Click failed, please try again.')
+  $('#game-message').text('Click failed, please try again.')
 }
 
 const markSquare = () => {
+  $('#game-message').text('')
   $(store.currSquare).addClass(`player-${store.currentPlayerMark}`)
   $(store.currSquare).text(store.currentPlayerMark)
 }
@@ -53,6 +41,9 @@ const displayPlayerTurn = () => {
 
 const invalidMove = () => {
   $('#game-message').text('That move is invalid!')
+  setTimeout(function () {
+    $('#game-message').text('')
+  }, 3000)
 }
 
 const displayVictory = () => {
@@ -67,12 +58,15 @@ const displayVictory = () => {
 }
 
 const displayTie = () => {
-  $('#game-status').text('Players X and O have tied!')
+  $('#game-status').text('Draw!')
   $('#player-turn').text('Game over!')
 }
 
 const gameOverMessage = () => {
-  failureMessage('The game is over! Please start a new one.')
+  $('#game-message').text('The game is over! Please start a new one.')
+  setTimeout(function () {
+    $('#game-message').text('')
+  }, 3000)
 }
 
 const indexGamesSuccess = responseData => {
@@ -98,11 +92,21 @@ const showGameSuccess = responseData => {
 }
 
 const showGameFailure = () => {
-  failureMessage('Unable to find game corresponding to that ID')
+  $('form').trigger('reset')
+  $('#game-message').text('Unable to find game corresponding to that ID')
 }
 
 const clearResults = () => {
   $('#show-small-board').addClass('hidden')
+  $('*[data-id="00"]').text('')
+  $('*[data-id="01"]').text('')
+  $('*[data-id="02"]').text('')
+  $('*[data-id="03"]').text('')
+  $('*[data-id="04"]').text('')
+  $('*[data-id="05"]').text('')
+  $('*[data-id="06"]').text('')
+  $('*[data-id="07"]').text('')
+  $('*[data-id="08"]').text('')
 }
 
 module.exports = {

@@ -12,9 +12,31 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
-      <p id="auth-message"></p>
-      <div class="container" id="landing-page">
+      <header>
         <h1>Tic Tac Toe</h1>
+      </header>
+
+      <div class="dropdown hidden" id="auth-dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button id="home" class="dropdown-item" type="button">Home</button>
+          <button id="pw-dropdown" class="dropdown-item" type="button">Change Password</button>
+          <button id="sign-out" class="dropdown-item" type="button">Sign Out</button>
+        </div>
+      </div>
+
+      <p id="auth-message"></p>
+
+      <!-- <div class="text-center">
+        <button class="btn btn-primary btn-lg m-2" type="button" id="dummy-sign-up">Sign Up</button>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary btn-lg m-2" type="button" id="dummy-sign-in">Sign In</button>
+      </div> -->
+
+      <div class="container" id="landing-page">
         <div class="row">
           <form id="sign-up" class="col-md-6 mb-5">
             <h3>Sign Up</h3>
@@ -43,25 +65,24 @@
             <button class="btn btn-primary" type="submit">Change Password</button>
             <p id="change-pw-message"></p>
           </form>
-          <form id="sign-out" class="col-md-6 mb-5">
-            <h3>Sign Out</h3>
-            <button class="btn btn-primary" type="submit">Sign Out</button>
-            <p id="sign-out-message"></p>
-          </form>
         </div>
       </div>
 
-      <nav class="hidden">
+      <div id="game-info" class="container hidden">
         <button id="new-game" class="btn btn-primary" type="button">New Game</button>
-      </nav>
+        <div class="row">
+          <div class="col-6">
+            <p id="player-turn" class="text-left mt-2 mb-1"></p>
+          </div>
+          <div class="col-6">
+            <p id="game-status" class="text-right mt-2 mb-1"></p>
+          </div>
+        </div>
+        <p id="game-message" class="text-center mb-1 p-2"></p>
+      </div>
 
       <main class="hidden" id="game-board">
-        <h2 id="game-message"></h2>
-        <h3 id="player-turn"></h3>
-        <h3 id="game-status"></h3>
-        <p id="game-id"></p>
         <div class="container">
-          <h1>Tic Tac Toe</h1>
           <div class="row">
             <div class="board col-4" data-id="0"></div>
             <div class="board col-4" data-id="1"></div>
@@ -78,16 +99,16 @@
             <div class="board col-4" data-id="8"></div>
           </div>
         </div>
+        <p id="game-id"></p>
 
-        <div id="index-games">
+        <div class="text-center m-1" id="index-games">
           <button class="btn btn-primary" type="button">Games Played</button>
           <p id="games-played"></p>
         </div>
         <div class="container">
-          <div class="row">
-            <form id="show-game" class="col-4 mb-5">
+            <form class="text-center m-1" id="show-game">
               <p>Show Past Game</p>
-              <input class="form-control mb-1" type="number" min="0" name="games[id]" placeholder="Game ID" required>
+              <input class="form-control mb-1" type="number" min="0" name="games[id]" placeholder="Enter Game ID" required>
               <button class="btn btn-primary" type="submit">Submit</button>
             </form>
             <div class="hidden col-8" id="show-small-board">
@@ -109,7 +130,6 @@
               <button id="clear-show-game" class="btn btn-primary" type="button">Clear Results</button>
             </div>
           </div>
-        </div>
       </main>
     </body>
 </html>

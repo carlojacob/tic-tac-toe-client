@@ -17,14 +17,15 @@ const store = require('./../store')
 // }
 
 const hideSignIn = () => {
-  $('#auth-forms').removeClass('hidden')
-  $('nav').removeClass('hidden')
+  $('#auth-dropdown').removeClass('hidden')
+  $('#game-info').removeClass('hidden')
   $('#landing-page').addClass('hidden')
 }
 
 const hideSignOut = () => {
+  $('#auth-dropdown').addClass('hidden')
   $('#auth-forms').addClass('hidden')
-  $('nav').addClass('hidden')
+  $('#game-info').addClass('hidden')
   $('#landing-page').removeClass('hidden')
 }
 
@@ -49,6 +50,7 @@ const signInSuccessful = responseData => {
   $('#sign-up-message').text('')
   $('#sign-in-message').text('')
   $('#auth-message').text('')
+  $('form').trigger('reset')
   // keeping track of the user so we can have the token for the API
   // we use `store` so we can access the token in any file
   store.user = responseData.user
@@ -62,29 +64,52 @@ const signInFailure = () => {
   // failureMessage('Your sign in failed!')
 }
 
+const pwDropdown = () => {
+  $('#game-board').addClass('hidden')
+  $('#game-info').addClass('hidden')
+  $('#auth-forms').removeClass('hidden')
+}
+
 const changePasswordSuccessful = () => {
-  $('#change-pw-message').text('You changed your password successfully')
-  $('#sign-out-message').text('')
+  $('#auth-message').text('You changed your password successfully')
+  setTimeout(function () {
+    $('#auth-message').text('')
+    // $('#auth-message').hide()
+  }, 3000)
   $('form').trigger('reset')
+  $('#auth-forms').addClass('hidden')
+  $('#game-info').removeClass('hidden')
+  $('#game-board').removeClass('hidden')
 }
 
 const changePasswordFailure = () => {
+  $('#auth-message').text('')
   $('#change-pw-message').text('Failed to change password')
-  $('#sign-out-message').text('')
+  setTimeout(function () {
+    $('#change-pw-message').text('')
+  }, 3000)
   $('form').trigger('reset')
 }
 
 const signOutSuccessful = () => {
   $('#auth-message').text('You signed out successfully')
-  $('#change-pw-message').text('')
-  $('#sign-out-message').text('')
+  setTimeout(function () {
+    $('#auth-message').text('')
+  }, 3000)
   hideSignOut()
   $('#game-board').addClass('hidden')
 }
 
 const signOutFailure = () => {
-  $('#sign-out-message').text('Failed to sign out')
-  $('#change-pw-message').text('')
+  $('#auth-message').text('Failed to sign out')
+  setTimeout(function () {
+    $('#auth-message').text('')
+  }, 3000)
+}
+
+const home = () => {
+  $('#game-info').removeClass('hidden')
+  $('#auth-forms').addClass('hidden')
 }
 
 module.exports = {
@@ -95,5 +120,7 @@ module.exports = {
   changePasswordSuccessful,
   changePasswordFailure,
   signOutSuccessful,
-  signOutFailure
+  signOutFailure,
+  pwDropdown,
+  home
 }
