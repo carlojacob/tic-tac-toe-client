@@ -2,6 +2,7 @@
 
 $board-color: $pale-grey;
 $board-hover: $dark-grey;
+$nav-color: $dark-blue;
 $player-o: $light-blue;
 $player-x: $pink-red;
 
@@ -13,7 +14,7 @@ header {
 }
 
 nav {
-  background-color: $pink-red;
+  background-color: $dark-blue;
   display: flex;
 }
 
