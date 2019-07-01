@@ -31,7 +31,7 @@ nav {
   border-bottom: 4px solid $white;
   border-right: 4px solid $white;
   display: flex;
-  font-size: 10vmin;
+  font-size: 20vmin;
   height: calc(100% / 3);
   justify-content: center;
 
@@ -92,6 +92,13 @@ nav {
 
   .landing-page {
     width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .small-board {
+    font-size: 25px;
+    height: 64px;
   }
 }
 

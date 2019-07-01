@@ -2,20 +2,6 @@
 
 const store = require('./../store')
 
-// const successMessage = message => {
-//   $('#auth-message').text(message)
-//   $('#auth-message').removeClass('failure')
-//   $('#auth-message').addClass('success')
-//   $('form').trigger('reset') // clears out form fields
-// }
-//
-// const failureMessage = message => {
-//   $('#auth-message').text(message)
-//   $('#auth-message').removeClass('success')
-//   $('#auth-message').addClass('failure')
-//   $('form').trigger('reset') // clears out form fields
-// }
-
 const hideSignIn = () => {
   $('#auth-nav').removeClass('hidden')
   $('#game-stats').removeClass('hidden')
@@ -75,7 +61,6 @@ const switchSignUp = () => {
 }
 
 const pwBtn = () => {
-  $('.game-board').addClass('hidden')
   $('#game-info').addClass('hidden')
   $('#game-stats').addClass('hidden')
   $('#auth-forms').removeClass('hidden')
@@ -111,6 +96,16 @@ const signOutSuccessful = () => {
   $('#player-turn').html('')
   $('#game-id').html('')
   $('#game-score').text('Score: X - 0 | O - 0 | Draw - 0')
+  $('#show-small-board').addClass('hidden')
+  $('*[data-id="00"]').text('')
+  $('*[data-id="01"]').text('')
+  $('*[data-id="02"]').text('')
+  $('*[data-id="03"]').text('')
+  $('*[data-id="04"]').text('')
+  $('*[data-id="05"]').text('')
+  $('*[data-id="06"]').text('')
+  $('*[data-id="07"]').text('')
+  $('*[data-id="08"]').text('')
 }
 
 const signOutFailure = () => {
