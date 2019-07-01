@@ -90,8 +90,8 @@ const isTheGameOver = () => {
     store.didXWin = store.winConditions[i].every(checkX) && store.winConditions[i].length === 3
     store.didOWin = store.winConditions[i].every(checkO) && store.winConditions[i].length === 3
     if (store.didXWin) {
-      store.winSquares = store.winIds[i]
-      store.xScore += 1
+      store.winSquares = store.winIds[i] // stores the index of what triggered win
+      store.xScore += 1 // updates score of current session
       ui.displayVictory()
       return true
     } else if (store.didOWin) {
@@ -113,18 +113,18 @@ const isTheGameOver = () => {
 // function that executes when someone clicks on a space in the board
 const onClickBoard = event => {
   event.preventDefault()
-  store.currSquare = event.target
+  store.currSquare = event.target // retrieves what square was clicked and stores it
   store.currId = $(store.currSquare).data('id') // retrieves data-id value of square that was clicked
-  const isItMarked = checkSquare(store.currSquare)
-  if (store.isItOver) {
-    ui.gameOverMessage()
-  } else if (isItMarked) {
-    ui.invalidMove()
-  } else {
+  const isItMarked = checkSquare(store.currSquare) // returns true or false on whether the current square is empty
+  if (store.isItOver) { // if game is already over
+    ui.gameOverMessage() // displays game is already over after someone clicks a square
+  } else if (isItMarked) { // if the square is already filled
+    ui.invalidMove() // displays the move as invalid
+  } else { // if the move is valid and the game is not over
     ui.markSquare() // marks square with current player mark
     pushPlayerMark(store.currId) // pushes current player mark to appropriate win condition arrays
     store.isItOver = isTheGameOver() // checks if someone/who has won
-    api.clickBoard()
+    api.clickBoard() // update game api
       .then(ui.clickBoardSuccessful)
       .catch(ui.clickBoardFailure)
     if (!store.isItOver) {
