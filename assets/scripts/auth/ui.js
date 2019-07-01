@@ -17,13 +17,13 @@ const store = require('./../store')
 // }
 
 const hideSignIn = () => {
-  $('#auth-dropdown').removeClass('hidden')
+  $('#auth-nav').removeClass('hidden')
   $('#game-info').removeClass('hidden')
   $('#landing-page').addClass('hidden')
 }
 
 const hideSignOut = () => {
-  $('#auth-dropdown').addClass('hidden')
+  $('#auth-nav').addClass('hidden')
   $('#auth-forms').addClass('hidden')
   $('#game-info').addClass('hidden')
   $('#landing-page').removeClass('hidden')
@@ -61,7 +61,7 @@ const signInFailure = () => {
   $('form').trigger('reset')
 }
 
-const pwDropdown = () => {
+const pwBtn = () => {
   $('#game-board').addClass('hidden')
   $('#game-info').addClass('hidden')
   $('#auth-forms').removeClass('hidden')
@@ -74,7 +74,6 @@ const changePasswordSuccessful = () => {
   }, 3000)
   $('form').trigger('reset')
   $('#auth-forms').addClass('hidden')
-  $('#game-info').removeClass('hidden')
 }
 
 const changePasswordFailure = () => {
@@ -101,11 +100,6 @@ const signOutFailure = () => {
   }, 3000)
 }
 
-const home = () => {
-  $('#game-info').removeClass('hidden')
-  $('#auth-forms').addClass('hidden')
-}
-
 module.exports = {
   signUpSuccessful,
   signUpFailure,
@@ -115,6 +109,5 @@ module.exports = {
   changePasswordFailure,
   signOutSuccessful,
   signOutFailure,
-  pwDropdown,
-  home
+  pwBtn
 }

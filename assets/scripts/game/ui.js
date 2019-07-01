@@ -5,6 +5,7 @@ const store = require('./../store')
 const newGameSuccessful = responseData => {
   store.game = responseData.game
   $('#game-board').removeClass('hidden')
+  $('#auth-forms').addClass('hidden')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
   $('#game-id').text(`Current game ID: ${store.game.id}`)

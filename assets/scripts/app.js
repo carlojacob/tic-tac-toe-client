@@ -13,9 +13,7 @@ $(() => {
 
   $('#sign-in').on('submit', authEvents.onSignIn)
 
-  $('#home').on('click', authEvents.onHome)
-
-  $('#pw-dropdown').on('click', authEvents.onPwDropdown)
+  $('#pw-btn').on('click', authEvents.onPwBtn)
 
   $('#change-password').on('submit', authEvents.onChangePassword)
 

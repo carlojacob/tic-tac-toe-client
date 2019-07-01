@@ -16,16 +16,11 @@
         <h1>Tic Tac Toe</h1>
       </header>
 
-      <div class="dropdown hidden" id="auth-dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button id="home" class="dropdown-item" type="button">Home</button>
-          <button id="pw-dropdown" class="dropdown-item" type="button">Change Password</button>
-          <button id="sign-out" class="dropdown-item" type="button">Sign Out</button>
-        </div>
-      </div>
+      <nav class="hidden" id="auth-nav">
+        <button id="new-game" class="btn nav-button mr-auto p-2" type="button">New Game</button>
+        <button id="pw-btn" class="btn nav-button p-2" type="button">Change Password</button>
+        <button id="sign-out" class="btn nav-button p-2" type="button">Sign Out</button>
+      </nav>
 
       <p id="auth-message"></p>
 
@@ -69,7 +64,6 @@
       </div>
 
       <div id="game-info" class="container hidden">
-        <button id="new-game" class="btn btn-primary" type="button">New Game</button>
         <div class="row">
           <div class="col-6">
             <p id="player-turn" class="text-left mt-2 mb-1"></p>
