@@ -16,6 +16,10 @@ store.winIds = [
   [2, 4, 6] // 7, data-ids 2, 4, and 6
 ]
 
+store.xScore = 0
+store.oScore = 0
+store.draw = 0
+
 // function that resets the game logic
 const resetGame = () => {
   store.currentPlayer = 'Player X'
@@ -87,16 +91,19 @@ const isTheGameOver = () => {
     store.didOWin = store.winConditions[i].every(checkO) && store.winConditions[i].length === 3
     if (store.didXWin) {
       store.winSquares = store.winIds[i]
+      store.xScore += 1
       ui.displayVictory()
       return true
     } else if (store.didOWin) {
       store.winSquares = store.winIds[i]
+      store.oScore += 1
       ui.displayVictory()
       return true
     }
   }
   store.didTheyTie = store.board.every(checkTie)
   if (store.didTheyTie) {
+    store.draw += 1
     ui.displayTie()
     return true
   }

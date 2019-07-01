@@ -55,6 +55,7 @@ const invalidMove = () => {
 const displayVictory = () => {
   $('#game-status').text(`Player ${store.currentPlayerMark} has won!`)
   $('#player-turn').text('Game over!')
+  $('#game-score').text(`Score: X - ${store.xScore} | O - ${store.oScore} | Draw - ${store.draw}`)
   $(`*[data-id="${store.winSquares[0]}"]`).removeClass(`player-${store.currentPlayerMark}`)
   $(`*[data-id="${store.winSquares[1]}"]`).removeClass(`player-${store.currentPlayerMark}`)
   $(`*[data-id="${store.winSquares[2]}"]`).removeClass(`player-${store.currentPlayerMark}`)
@@ -66,6 +67,7 @@ const displayVictory = () => {
 const displayTie = () => {
   $('#game-status').text('Draw!')
   $('#player-turn').text('Game over!')
+  $('#game-score').text(`Score: X - ${store.xScore} | O - ${store.oScore} | Draw - ${store.draw}`)
 }
 
 const gameOverMessage = () => {

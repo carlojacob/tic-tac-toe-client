@@ -112,6 +112,7 @@ const signOutSuccessful = () => {
   $('#player-turn').html('')
   $('#game-board').addClass('hidden')
   $('#game-id').html('')
+  $('#game-score').text('Score: X - 0 | O - 0 | Draw - 0')
 }
 
 const signOutFailure = () => {
