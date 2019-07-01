@@ -2,6 +2,19 @@
 
 const store = require('./../store')
 
+const clearSmallBoard = () => {
+  $('#show-small-board').addClass('hidden')
+  $('*[data-id="00"]').text('')
+  $('*[data-id="01"]').text('')
+  $('*[data-id="02"]').text('')
+  $('*[data-id="03"]').text('')
+  $('*[data-id="04"]').text('')
+  $('*[data-id="05"]').text('')
+  $('*[data-id="06"]').text('')
+  $('*[data-id="07"]').text('')
+  $('*[data-id="08"]').text('')
+}
+
 const newGameSuccessful = responseData => {
   store.game = responseData.game
   $('#game-info').removeClass('hidden')
@@ -101,6 +114,7 @@ const showGameSuccess = responseData => {
 
 const showGameFailure = () => {
   $('form').trigger('reset')
+  clearSmallBoard()
   $('#show-game-message').text('Unable to find game corresponding to that ID')
   setTimeout(function () {
     $('#show-game-message').text('')
@@ -108,16 +122,7 @@ const showGameFailure = () => {
 }
 
 const clearResults = () => {
-  $('#show-small-board').addClass('hidden')
-  $('*[data-id="00"]').text('')
-  $('*[data-id="01"]').text('')
-  $('*[data-id="02"]').text('')
-  $('*[data-id="03"]').text('')
-  $('*[data-id="04"]').text('')
-  $('*[data-id="05"]').text('')
-  $('*[data-id="06"]').text('')
-  $('*[data-id="07"]').text('')
-  $('*[data-id="08"]').text('')
+  clearSmallBoard()
 }
 
 module.exports = {
