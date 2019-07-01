@@ -26,12 +26,35 @@ nav {
 }
 
 .board {
+  align-items: center;
   background-color: $board-color;
-  border: 4px solid $white;
-  font-size: 80px;
-  height: 120px;
-  text-align: center;
+  border-bottom: 4px solid $white;
+  border-right: 4px solid $white;
+  display: flex;
+  font-size: 10vmin;
+  height: calc(100% / 3);
+  justify-content: center;
+
+  &:nth-child(3n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-1n + 3) {
+    border-bottom: 0;
+  }
 }
+
+.board-rows {
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  right: 0;
+}
+
+.game-board {
+  width: 100vmin;
+}
+
 
 .o-highlight {
   background-color: $player-o;
@@ -61,8 +84,6 @@ nav {
 
 @media (min-width: 576px) {
   .board {
-    font-size: 120px;
-    height: 180px;
 
     &:hover {
       background-color: $dark-grey;
@@ -74,25 +95,8 @@ nav {
   }
 }
 
-@media (min-width: 768px) {
-  .board {
-    font-size: 128px;
-    height: 192px;
-  }
-
-  .small-board {
-    font-size: 86px;
-    height: 128px;
-  }
-}
-
 @media (min-width: 992px) {
-  .board {
-    font-size: 166px;
-    height: 248px;
-  }
-
   .landing-page {
-    width: 33.3333%;
+    width: calc(100% / 3);
   }
 }

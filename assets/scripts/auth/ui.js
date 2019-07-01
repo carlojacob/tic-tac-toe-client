@@ -18,7 +18,6 @@ const store = require('./../store')
 
 const hideSignIn = () => {
   $('#auth-nav').removeClass('hidden')
-  $('#game-info').removeClass('hidden')
   $('#game-stats').removeClass('hidden')
   $('#landing-page2').addClass('hidden')
 }
@@ -76,7 +75,7 @@ const switchSignUp = () => {
 }
 
 const pwBtn = () => {
-  $('#game-board').addClass('hidden')
+  $('.game-board').addClass('hidden')
   $('#game-info').addClass('hidden')
   $('#game-stats').addClass('hidden')
   $('#auth-forms').removeClass('hidden')
@@ -110,7 +109,6 @@ const signOutSuccessful = () => {
   $('#game-message').html('')
   $('#game-status').html('')
   $('#player-turn').html('')
-  $('#game-board').addClass('hidden')
   $('#game-id').html('')
   $('#game-score').text('Score: X - 0 | O - 0 | Draw - 0')
 }
