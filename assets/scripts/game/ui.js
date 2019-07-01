@@ -101,7 +101,10 @@ const showGameSuccess = responseData => {
 
 const showGameFailure = () => {
   $('form').trigger('reset')
-  $('#game-message').text('Unable to find game corresponding to that ID')
+  $('#show-game-message').text('Unable to find game corresponding to that ID')
+  setTimeout(function () {
+    $('#show-game-message').text('')
+  }, 3000)
 }
 
 const clearResults = () => {
