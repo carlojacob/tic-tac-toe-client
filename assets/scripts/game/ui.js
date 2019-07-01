@@ -59,7 +59,7 @@ const displayPlayerTurn = () => {
 }
 
 const invalidMove = () => {
-  $('#game-message').text('That move is invalid!')
+  $('#game-message').text('Invalid move, please choose an empty square')
   setTimeout(function () {
     $('#game-message').text('')
   }, 3000)
