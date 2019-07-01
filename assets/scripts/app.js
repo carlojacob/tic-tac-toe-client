@@ -13,6 +13,10 @@ $(() => {
 
   $('#sign-in').on('submit', authEvents.onSignIn)
 
+  $('#switch-sign-in').on('click', authEvents.onSwitchSignIn)
+
+  $('#switch-sign-up').on('click', authEvents.onSwitchSignUp)
+
   $('#pw-btn').on('click', authEvents.onPwBtn)
 
   $('#change-password').on('submit', authEvents.onChangePassword)

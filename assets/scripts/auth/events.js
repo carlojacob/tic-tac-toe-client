@@ -22,6 +22,14 @@ const onSignIn = event => {
     .catch(ui.signInFailure)
 }
 
+const onSwitchSignIn = event => {
+  ui.switchSignIn()
+}
+
+const onSwitchSignUp = event => {
+  ui.switchSignUp()
+}
+
 const onChangePassword = event => {
   event.preventDefault()
   const form = event.target
@@ -45,6 +53,8 @@ const onPwBtn = event => {
 module.exports = {
   onSignUp,
   onSignIn,
+  onSwitchSignIn,
+  onSwitchSignUp,
   onChangePassword,
   onSignOut,
   onPwBtn

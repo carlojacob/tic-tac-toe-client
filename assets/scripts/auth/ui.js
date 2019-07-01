@@ -19,28 +19,32 @@ const store = require('./../store')
 const hideSignIn = () => {
   $('#auth-nav').removeClass('hidden')
   $('#game-info').removeClass('hidden')
-  $('#landing-page').addClass('hidden')
+  $('#game-stats').removeClass('hidden')
+  $('#landing-page2').addClass('hidden')
 }
 
 const hideSignOut = () => {
   $('#auth-nav').addClass('hidden')
   $('#auth-forms').addClass('hidden')
   $('#game-info').addClass('hidden')
-  $('#landing-page').removeClass('hidden')
+  $('#game-stats').addClass('hidden')
+  $('#landing-page2').removeClass('hidden')
 }
 
 const signUpSuccessful = responseData => {
-  $('#sign-up-message').text('You signed up successfully! Please sign in below.')
+  $('#auth-message').text('You signed up successfully! Please sign in below.')
   setTimeout(function () {
-    $('#sign-up-message').text('')
+    $('#auth-message').text('')
   }, 3000)
   $('form').trigger('reset')
+  $('#landing-page1').addClass('hidden')
+  $('#landing-page2').removeClass('hidden')
 }
 
 const signUpFailure = () => {
-  $('#sign-up-message').text('Sign up failed.')
+  $('#auth-message').text('Sign up failed, please try again')
   setTimeout(function () {
-    $('#sign-up-message').text('')
+    $('#auth-message').text('')
   }, 3000)
   $('form').trigger('reset')
 }
@@ -54,16 +58,27 @@ const signInSuccessful = responseData => {
 }
 
 const signInFailure = () => {
-  $('#sign-in-message').text('Incorrect email or password')
+  $('#auth-message').text('Incorrect email or password')
   setTimeout(function () {
-    $('#sign-in-message').text('')
+    $('#auth-message').text('')
   }, 3000)
   $('form').trigger('reset')
+}
+
+const switchSignIn = () => {
+  $('#landing-page1').addClass('hidden')
+  $('#landing-page2').removeClass('hidden')
+}
+
+const switchSignUp = () => {
+  $('#landing-page2').addClass('hidden')
+  $('#landing-page1').removeClass('hidden')
 }
 
 const pwBtn = () => {
   $('#game-board').addClass('hidden')
   $('#game-info').addClass('hidden')
+  $('#game-stats').addClass('hidden')
   $('#auth-forms').removeClass('hidden')
 }
 
@@ -74,6 +89,7 @@ const changePasswordSuccessful = () => {
   }, 3000)
   $('form').trigger('reset')
   $('#auth-forms').addClass('hidden')
+  $('#game-stats').removeClass('hidden')
 }
 
 const changePasswordFailure = () => {
@@ -90,7 +106,12 @@ const signOutSuccessful = () => {
     $('#auth-message').text('')
   }, 3000)
   hideSignOut()
+  $('#game-info').addClass('hidden')
+  $('#game-message').html('')
+  $('#game-status').html('')
+  $('#player-turn').html('')
   $('#game-board').addClass('hidden')
+  $('#game-id').html('')
 }
 
 const signOutFailure = () => {
@@ -105,6 +126,8 @@ module.exports = {
   signUpFailure,
   signInSuccessful,
   signInFailure,
+  switchSignIn,
+  switchSignUp,
   changePasswordSuccessful,
   changePasswordFailure,
   signOutSuccessful,
