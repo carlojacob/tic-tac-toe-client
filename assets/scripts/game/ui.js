@@ -4,7 +4,6 @@ const store = require('./../store')
 
 const newGameSuccessful = responseData => {
   store.game = responseData.game
-  // successMessage('Your new game has been created!')
   $('#game-board').removeClass('hidden')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
@@ -17,6 +16,9 @@ const newGameSuccessful = responseData => {
 
 const newGameFailure = () => {
   $('#game-message').text('Failed to create new game!')
+  setTimeout(function () {
+    $('#game-message').text('')
+  }, 3000)
 }
 
 const clickBoardSuccessful = responseData => {
@@ -27,6 +29,9 @@ const clickBoardSuccessful = responseData => {
 
 const clickBoardFailure = () => {
   $('#game-message').text('Click failed, please try again.')
+  setTimeout(function () {
+    $('#game-message').text('')
+  }, 3000)
 }
 
 const markSquare = () => {

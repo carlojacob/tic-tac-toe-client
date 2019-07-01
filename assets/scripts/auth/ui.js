@@ -31,25 +31,22 @@ const hideSignOut = () => {
 
 const signUpSuccessful = responseData => {
   $('#sign-up-message').text('You signed up successfully! Please sign in below.')
-  $('#sign-in-message').text('')
-  $('#auth-message').text('')
+  setTimeout(function () {
+    $('#sign-up-message').text('')
+  }, 3000)
   $('form').trigger('reset')
 }
 
 const signUpFailure = () => {
-  $('#sign-up-message').text('That email is taken, plaese try a different one.')
-  $('#sign-in-message').text('')
-  $('#auth-message').text('')
+  $('#sign-up-message').text('Sign up failed.')
+  setTimeout(function () {
+    $('#sign-up-message').text('')
+  }, 3000)
   $('form').trigger('reset')
-  // failureMessage('Your sign up failed!')
 }
 
 const signInSuccessful = responseData => {
-  // successMessage('You signed in successfully!')
   hideSignIn()
-  $('#sign-up-message').text('')
-  $('#sign-in-message').text('')
-  $('#auth-message').text('')
   $('form').trigger('reset')
   // keeping track of the user so we can have the token for the API
   // we use `store` so we can access the token in any file
@@ -58,10 +55,10 @@ const signInSuccessful = responseData => {
 
 const signInFailure = () => {
   $('#sign-in-message').text('Incorrect email or password')
-  $('#sign-up-message').text('')
-  $('#auth-message').text('')
+  setTimeout(function () {
+    $('#sign-in-message').text('')
+  }, 3000)
   $('form').trigger('reset')
-  // failureMessage('Your sign in failed!')
 }
 
 const pwDropdown = () => {
@@ -74,16 +71,13 @@ const changePasswordSuccessful = () => {
   $('#auth-message').text('You changed your password successfully')
   setTimeout(function () {
     $('#auth-message').text('')
-    // $('#auth-message').hide()
   }, 3000)
   $('form').trigger('reset')
   $('#auth-forms').addClass('hidden')
   $('#game-info').removeClass('hidden')
-  $('#game-board').removeClass('hidden')
 }
 
 const changePasswordFailure = () => {
-  $('#auth-message').text('')
   $('#change-pw-message').text('Failed to change password')
   setTimeout(function () {
     $('#change-pw-message').text('')

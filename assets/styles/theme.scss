@@ -1,6 +1,7 @@
 @import 'colors';
 
 $board-color: $pale-grey;
+$board-hover: $dark-grey;
 $player-o: $light-blue;
 $player-x: $pink-red;
 
@@ -17,6 +18,10 @@ header {
   font-size: 80px;
   height: 120px;
   text-align: center;
+
+  &:hover {
+    background-color: $dark-grey;
+  }
 }
 
 .o-highlight {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Example</title>
+      <title>Tic Tac Toe</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <!-- Do not add `link` tags-->
@@ -38,7 +38,7 @@
 
       <div class="container" id="landing-page">
         <div class="row">
-          <form id="sign-up" class="col-md-6 mb-5">
+          <form id="sign-up" class="col-md-6 mb-3">
             <h3>Sign Up</h3>
             <input class="form-control mb-1" type="email" name="credentials[email]" placeholder="Email">
             <input class="form-control mb-1" type="password" name="credentials[password]" placeholder="Password">
@@ -77,8 +77,10 @@
           <div class="col-6">
             <p id="game-status" class="text-right mt-2 mb-1"></p>
           </div>
+          <div class="col-8">
+            <p class="text-left mt-1 mb-1" id="game-id"></p>
+          </div>
         </div>
-        <p id="game-message" class="text-center mb-1 p-2"></p>
       </div>
 
       <main class="hidden" id="game-board">
@@ -99,7 +101,7 @@
             <div class="board col-4" data-id="8"></div>
           </div>
         </div>
-        <p id="game-id"></p>
+        <p id="game-message" class="text-center mb-1"></p>
 
         <div class="text-center m-1" id="index-games">
           <button class="btn btn-primary" type="button">Games Played</button>

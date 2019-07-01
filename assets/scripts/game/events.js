@@ -18,7 +18,7 @@ store.winIds = [
 
 // function that resets the game logic
 const resetGame = () => {
-  store.currentPlayer = 'Player x'
+  store.currentPlayer = 'Player X'
   store.currentPlayerMark = 'x'
   store.winConditions = [[], [], [], [], [], [], [], []]
   store.board = ['', '', '', '', '', '', '', '', '']
@@ -47,17 +47,18 @@ const checkSquare = square => {
 
 // function that changes the current player
 const toggleTurn = () => {
-  if (store.currentPlayer === 'Player x') {
-    store.currentPlayer = 'Player o'
+  if (store.currentPlayer === 'Player X') {
+    store.currentPlayer = 'Player O'
     store.currentPlayerMark = 'o'
     ui.displayPlayerTurn()
-  } else if (store.currentPlayer === 'Player o') {
-    store.currentPlayer = 'Player x'
+  } else if (store.currentPlayer === 'Player O') {
+    store.currentPlayer = 'Player X'
     store.currentPlayerMark = 'x'
     ui.displayPlayerTurn()
   }
 }
 
+// function that puts the current player mark in the appropriate win condition array
 const pushPlayerMark = id => {
   store.board[id] = store.currentPlayerMark
   for (let i = 0; i < store.winIds.length; i++) {
@@ -70,12 +71,16 @@ const pushPlayerMark = id => {
   }
 }
 
+// cheacks if any of the win condition arrays contain all Xs
 const checkX = currString => currString === 'x'
 
+// cheacks if any of the win condition arrays contain all Os
 const checkO = currString => currString === 'o'
 
+// checks if every element of the board array is full with player marks
 const checkTie = currString => currString === 'x' || currString === 'o'
 
+// checks if someone has one or tied
 const isTheGameOver = () => {
   for (let i = 0; i < store.winConditions.length; i++) {
     store.didXWin = store.winConditions[i].every(checkX) && store.winConditions[i].length === 3
@@ -116,7 +121,7 @@ const onClickBoard = event => {
       .then(ui.clickBoardSuccessful)
       .catch(ui.clickBoardFailure)
     if (!store.isItOver) {
-      toggleTurn()
+      toggleTurn() // switches the current player if the game is not over
     }
   }
 }
