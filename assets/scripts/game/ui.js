@@ -90,6 +90,7 @@ const showGameSuccess = responseData => {
   store.game = responseData.game
   $('#game-id').text(`Current game ID: ${store.game.id}`)
   $('#game-status').text('')
+  $('.board').removeClass('o-highlight x-highlight player-x player-o')
   $('form').trigger('reset')
   $('*[data-id="0"]').text(`${responseData.game.cells[0]}`)
   $('*[data-id="1"]').text(`${responseData.game.cells[1]}`)
