@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Tic Tac Toe</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Do not add `link` tags-->
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+      <!-- Do not add `script` tags-->
+      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+    </head>
+    <body>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+
+      <nav class="hidden" id="auth-nav">
+        <button id="new-game" class="btn nav-button mr-auto p-2" type="button">New Game</button>
+        <button id="pw-btn" class="btn nav-button p-2" type="button">Change Password</button>
+        <button id="sign-out" class="btn nav-button p-2" type="button">Sign Out</button>
+      </nav>
+
+      <p class="text-center pt-2" id="auth-message"></p>
+
+      <div class="landing-page container" id="landing-page1">
+        <div class="d-flex flex-column justify-content-center">
+          <h3 class="text-center m-2">Sign Up</h3>
+          <form id="sign-up">
+            <input class="form-control mb-1" type="email" name="credentials[email]" placeholder="Email">
+            <input class="form-control mb-1" type="password" name="credentials[password]" placeholder="Password">
+            <input class="form-control mb-1" type="password" name="credentials[password_confirmation]" placeholder="Confirm Password">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <p id="sign-up-message"></p>
+          </form>
+          <h4 class="text-center mb-4">OR</h4>
+          <button class="btn btn-primary" type="button" id="switch-sign-in">Sign In</button>
+        </div>
+      </div>
+
+      <div class="landing-page container hidden" id="landing-page2">
+        <div class="d-flex flex-column justify-content-center">
+          <h3 class="text-center m-2">Sign In</h3>
+          <form id="sign-in">
+            <input class="form-control mb-1" type="email" name="credentials[email]" placeholder="Email">
+            <input class="form-control mb-1" type="password" name="credentials[password]" placeholder="Password">
+            <button class="btn btn-primary" type="submit">Sign In</button>
+            <p id="sign-in-message"></p>
+          </form>
+          <h4 class="text-center mb-4">OR</h4>
+          <button class="btn btn-primary" type="button" id="switch-sign-up">Sign Up</button>
+        </div>
+      </div>
+
+      <div class="container hidden" id="auth-forms">
+        <div class="row">
+          <form id="change-password" class="col-md-6 mb-5">
+            <h3>Change Password</h3>
+            <input class="form-control mb-1" type="password" name="passwords[old]" placeholder="Old Password">
+            <input class="form-control mb-1" type="password" name="passwords[new]" placeholder="New Password">
+            <button class="btn btn-primary" type="submit">Change Password</button>
+            <p id="change-pw-message"></p>
+          </form>
+        </div>
+      </div>
+
+      <main>
+        <div id="game-info" class="container hidden">
+          <p id="game-message" class="text-center mb-1"></p>
+          <div class="row">
+            <div class="col-6">
+              <p id="player-turn" class="text-left mt-2 mb-1"></p>
+            </div>
+            <div class="col-6">
+              <p id="game-status" class="text-right mt-2 mb-1"></p>
+            </div>
+          </div>
+
+          <div class="container game-board embed-responsive embed-responsive-1by1">
+            <div class="row board-rows embed-responsive-item">
+              <div class="board col-4" data-id="0"></div>
+              <div class="board col-4" data-id="1"></div>
+              <div class="board col-4" data-id="2"></div>
+              <div class="board col-4" data-id="3"></div>
+              <div class="board col-4" data-id="4"></div>
+              <div class="board col-4" data-id="5"></div>
+              <div class="board col-4" data-id="6"></div>
+              <div class="board col-4" data-id="7"></div>
+              <div class="board col-4" data-id="8"></div>
+            </div>
+          </div>
+          <p class="text-left mt-1 mb-1" id="game-id"></p>
+          <p class="text-left mt-1 mb-1" id="game-score">Score: X - 0 | O - 0 | Draw - 0</p>
+        </div>
+
+        <div class="hidden container" id="game-stats">
+          <div>
+            <div class="text-center" id="index-games">
+              <button class="btn btn-primary" type="button">Games Played</button>
+              <p id="games-played"></p>
+            </div>
+            <form class="text-center" id="show-game">
+              <p>Show Past Game</p>
+              <input class="form-control mb-1" type="number" min="0" name="games[id]" placeholder="Enter Game ID" required>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            <p id="show-game-message"></p>
+            </form>
+          </div>
+        </div>
+      </main>
+    </body>
+</html>
