@@ -29,6 +29,12 @@ Throughout the process I tried to simplify code that I had been written previous
 
 ## Wireframes and User Stories
 
+Wireframes:
+
+  ![Wireframe Image](./public/Wireframe.jpg)
+
+  ![Wireframe Image](./public/Wireframe-1.jpg)
+
 User stories:
   1. As a user, I want to be able to see whose turn it currently is displayed in the app so I don't need to keep track of it in case we put the game down and come back to it.
   2. As a user, I want to see a message displaying who has won so it doesn't need to be inferred from the final board.

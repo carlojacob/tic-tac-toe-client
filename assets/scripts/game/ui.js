@@ -18,6 +18,7 @@ const clearSmallBoard = () => {
 const newGameSuccessful = responseData => {
   store.game = responseData.game
   $('#game-info').removeClass('hidden')
+  $('#game-stats').removeClass('hidden')
   $('#auth-forms').addClass('hidden')
   $('.board').html('')
   $('#player-turn').text('Player X goes first!')
