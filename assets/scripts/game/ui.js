@@ -89,6 +89,7 @@ const indexGamesFailure = () => {
 const showGameSuccess = responseData => {
   store.game = responseData.game
   $('#game-id').text(`Current game ID: ${store.game.id}`)
+  $('#game-status').text('')
   $('form').trigger('reset')
   $('*[data-id="0"]').text(`${responseData.game.cells[0]}`)
   $('*[data-id="1"]').text(`${responseData.game.cells[1]}`)
