@@ -23,9 +23,9 @@ Throughout the process I tried to simplify code that I had been written previous
 ## Unsolved Problems
 
 - Formatting and styling
+- The colors of a past game should match new marks instead of showing up black
 - You should be signed in automatically after signing up
 - A new game should automatically be created when you sign in
-- The app should support continuing games that were not finished
 
 ## Wireframes and User Stories
 

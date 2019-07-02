@@ -2,19 +2,6 @@
 
 const store = require('./../store')
 
-const clearSmallBoard = () => {
-  $('#show-small-board').addClass('hidden')
-  $('*[data-id="00"]').text('')
-  $('*[data-id="01"]').text('')
-  $('*[data-id="02"]').text('')
-  $('*[data-id="03"]').text('')
-  $('*[data-id="04"]').text('')
-  $('*[data-id="05"]').text('')
-  $('*[data-id="06"]').text('')
-  $('*[data-id="07"]').text('')
-  $('*[data-id="08"]').text('')
-}
-
 const newGameSuccessful = responseData => {
   store.game = responseData.game
   $('#game-info').removeClass('hidden')
@@ -100,30 +87,32 @@ const indexGamesFailure = () => {
 }
 
 const showGameSuccess = responseData => {
+  store.game = responseData.game
+  $('#game-id').text(`Current game ID: ${store.game.id}`)
   $('form').trigger('reset')
-  $('*[data-id="00"]').text(`${responseData.game.cells[0]}`)
-  $('*[data-id="01"]').text(`${responseData.game.cells[1]}`)
-  $('*[data-id="02"]').text(`${responseData.game.cells[2]}`)
-  $('*[data-id="03"]').text(`${responseData.game.cells[3]}`)
-  $('*[data-id="04"]').text(`${responseData.game.cells[4]}`)
-  $('*[data-id="05"]').text(`${responseData.game.cells[5]}`)
-  $('*[data-id="06"]').text(`${responseData.game.cells[6]}`)
-  $('*[data-id="07"]').text(`${responseData.game.cells[7]}`)
-  $('*[data-id="08"]').text(`${responseData.game.cells[8]}`)
-  $('#show-small-board').removeClass('hidden')
+  $('*[data-id="0"]').text(`${responseData.game.cells[0]}`)
+  $('*[data-id="1"]').text(`${responseData.game.cells[1]}`)
+  $('*[data-id="2"]').text(`${responseData.game.cells[2]}`)
+  $('*[data-id="3"]').text(`${responseData.game.cells[3]}`)
+  $('*[data-id="4"]').text(`${responseData.game.cells[4]}`)
+  $('*[data-id="5"]').text(`${responseData.game.cells[5]}`)
+  $('*[data-id="6"]').text(`${responseData.game.cells[6]}`)
+  $('*[data-id="7"]').text(`${responseData.game.cells[7]}`)
+  $('*[data-id="8"]').text(`${responseData.game.cells[8]}`)
+  $('#game-info').removeClass('hidden')
 }
 
 const showGameFailure = () => {
   $('form').trigger('reset')
-  clearSmallBoard()
   $('#show-game-message').text('Unable to find game corresponding to that ID')
   setTimeout(function () {
     $('#show-game-message').text('')
   }, 3000)
 }
 
-const clearResults = () => {
-  clearSmallBoard()
+const gameOver = () => {
+  $('#player-turn').text('Game over!')
+  $('#game-status').text('')
 }
 
 module.exports = {
@@ -141,5 +130,5 @@ module.exports = {
   indexGamesFailure,
   showGameSuccess,
   showGameFailure,
-  clearResults
+  gameOver
 }

@@ -75,10 +75,10 @@ const pushPlayerMark = id => {
   }
 }
 
-// cheacks if any of the win condition arrays contain all Xs
+// chacks if any of the win condition arrays contain all Xs
 const checkX = currString => currString === 'x'
 
-// cheacks if any of the win condition arrays contain all Os
+// chacks if any of the win condition arrays contain all Os
 const checkO = currString => currString === 'o'
 
 // checks if every element of the board array is full with player marks
@@ -140,12 +140,53 @@ const onIndexGames = event => {
     .catch(ui.indexGamesFailure)
 }
 
+// function that checks whose turn it is in a past game
+const checkTurn = (cells) => {
+  // filter the empty squares from the cells array
+  const emptySquares = cells.filter((currString) => currString === '')
+  // if the new array has an even length then it is O's turn, otherwise it is X
+  if (emptySquares.length % 2 === 0) {
+    store.currentPlayer = 'Player O'
+    store.currentPlayerMark = 'o'
+  } else {
+    store.currentPlayer = 'Player X'
+    store.currentPlayerMark = 'x'
+  }
+}
+
+// function that populates the board and win conditions array on show a past game
+const populateBoard = responseData => {
+  const cells = responseData.game.cells
+  for (let i = 0; i < cells.length; i++) {
+    store.board[i] = cells[i]
+    for (let j = 0; j < store.winIds.length; j++) {
+      const shouldItPush = store.winIds[j].some(function (currNum) {
+        return i === currNum
+      })
+      if (shouldItPush && cells[i]) {
+        store.winConditions[j].push(cells[i])
+      }
+    }
+  }
+  store.isItOver = responseData.game.over // stores whether or not the past game called is over
+  if (!store.isItOver) { // if the game called is not over
+    checkTurn(cells) // check whose turn it is and store the current player and marker
+    ui.displayPlayerTurn() // display whose turn it is
+  } else {
+    ui.gameOver() // otherwise display that the game is already over
+  }
+}
+
 const onShowGame = event => {
   event.preventDefault()
+  resetGame()
   const form = event.target
   const formData = getFormFields(form)
   api.showGame(formData)
-    .then(ui.showGameSuccess)
+    .then((responseData) => {
+      populateBoard(responseData)
+      ui.showGameSuccess(responseData)
+    })
     .catch(ui.showGameFailure)
 }
 
